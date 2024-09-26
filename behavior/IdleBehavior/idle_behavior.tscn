@@ -1,0 +1,19 @@
+[gd_scene load_steps=5 format=3 uid="uid://t14rilsyq0d0"]
+
+[ext_resource type="Script" path="res://behavior/IdleBehavior/idle_behavior.gd" id="1_ujyx7"]
+[ext_resource type="Script" path="res://behavior/behavior_tree/sequence.gd" id="2_ma3y0"]
+[ext_resource type="Script" path="res://behavior/animation_starter.gd" id="3_ck045"]
+[ext_resource type="Script" path="res://behavior/IdleBehavior/idle.gd" id="4_j13t4"]
+
+[node name="IdleBehavior" type="Node"]
+script = ExtResource("1_ujyx7")
+
+[node name="Idle" type="Node" parent="."]
+script = ExtResource("2_ma3y0")
+
+[node name="StartIdleAnimation" type="Node" parent="Idle"]
+script = ExtResource("3_ck045")
+animation_state = "Idle"
+
+[node name="Idle" type="Node" parent="Idle"]
+script = ExtResource("4_j13t4")

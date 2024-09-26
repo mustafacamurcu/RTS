@@ -1,0 +1,42 @@
+[gd_scene load_steps=8 format=3 uid="uid://b1yyvdds68i1"]
+
+[ext_resource type="Texture2D" uid="uid://b1x0gs65n58sr" path="res://buildings/Castle/Castle_Blue.png" id="1_ea2al"]
+[ext_resource type="Script" path="res://buildings/Castle/castle.gd" id="1_qv7ua"]
+[ext_resource type="PackedScene" uid="uid://bdwv3xtheeggv" path="res://components/Selectable/Selectable.tscn" id="4_nk71f"]
+[ext_resource type="Material" uid="uid://bfuo0bdmnof36" path="res://shaders/outline_material.tres" id="4_p4rjx"]
+[ext_resource type="PackedScene" uid="uid://dhywmau188l6n" path="res://components/unit_hud/unit_hud.tscn" id="5_blyib"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vfly1"]
+size = Vector2(246, 61)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4vvr2"]
+size = Vector2(244.5, 163.25)
+
+[node name="Castle" type="StaticBody2D"]
+collision_layer = 3
+script = ExtResource("1_qv7ua")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+material = ExtResource("4_p4rjx")
+position = Vector2(-1, -109)
+texture = ExtResource("1_ea2al")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(0, -38)
+shape = SubResource("RectangleShape2D_vfly1")
+
+[node name="Selectable" parent="." instance=ExtResource("4_nk71f")]
+visible = false
+
+[node name="CollisionShape2D" parent="Selectable" index="0"]
+position = Vector2(-1, -89)
+shape = SubResource("RectangleShape2D_4vvr2")
+
+[node name="UnitHUD" parent="." instance=ExtResource("5_blyib")]
+offset_left = -20.0
+offset_top = -228.0
+offset_right = 10.0
+offset_bottom = -198.0
+
+[editable path="Selectable"]

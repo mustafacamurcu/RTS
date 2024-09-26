@@ -1,0 +1,54 @@
+[gd_scene load_steps=8 format=3 uid="uid://bqn2km6s4dxhj"]
+
+[ext_resource type="Texture2D" uid="uid://6f4kxltnle8f" path="res://resources/Gold Mine/GoldMine_Active.png" id="1_nfd0m"]
+[ext_resource type="Script" path="res://resources/Gold Mine/gold_mine.gd" id="1_unywu"]
+[ext_resource type="PackedScene" uid="uid://bdwv3xtheeggv" path="res://components/Selectable/Selectable.tscn" id="2_bik2n"]
+[ext_resource type="Texture2D" uid="uid://bm3juqfvgpaud" path="res://resources/Gold Mine/GoldMine_Destroyed.png" id="3_y2qse"]
+[ext_resource type="Texture2D" uid="uid://bfamdpmvqvq6c" path="res://resources/Gold Mine/GoldMine_Inactive.png" id="4_4dwku"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rfwra"]
+size = Vector2(144, 64)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8sj4j"]
+size = Vector2(166, 111)
+
+[node name="Gold Mine" type="StaticBody2D"]
+script = ExtResource("1_unywu")
+
+[node name="Active" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(-1, -41)
+texture = ExtResource("1_nfd0m")
+
+[node name="Destroyed" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(-1, -41)
+texture = ExtResource("3_y2qse")
+
+[node name="Inactive" type="Sprite2D" parent="."]
+position = Vector2(-1, -41)
+texture = ExtResource("4_4dwku")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(-2, -33)
+shape = SubResource("RectangleShape2D_rfwra")
+
+[node name="Selectable" parent="." instance=ExtResource("2_bik2n")]
+visible = false
+
+[node name="CollisionShape2D" parent="Selectable" index="0"]
+position = Vector2(-1, -49.5)
+shape = SubResource("RectangleShape2D_8sj4j")
+
+[node name="Hotspots" type="Node" parent="."]
+
+[node name="Left" type="Node2D" parent="Hotspots"]
+visible = false
+position = Vector2(-122, -4)
+
+[node name="Right" type="Node2D" parent="Hotspots"]
+visible = false
+position = Vector2(115, -5)
+
+[editable path="Selectable"]

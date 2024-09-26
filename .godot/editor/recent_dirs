@@ -1,0 +1,17 @@
+res://behavior/NavigateBehavior
+res://behavior/IdleBehavior
+res://behavior/GatherBehavior
+res://
+res://resources
+res://resources/Gold Mine
+res://game
+res://ui
+res://components/unit_hud
+res://components/Selectable
+res://units/Warrior
+res://buildings/Castle
+res://tiles
+res://components/unit_selector
+res://components/navigator
+res://components/animation
+res://components

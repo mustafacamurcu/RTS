@@ -1,0 +1,54 @@
+[gd_scene load_steps=6 format=3 uid="uid://dxa5ffcb5xbgy"]
+
+[ext_resource type="Script" path="res://resources/Trees/tree.gd" id="1_n207w"]
+[ext_resource type="Texture2D" uid="uid://c57a5h5frhobd" path="res://resources/Trees/Tree.png" id="2_nbwk1"]
+[ext_resource type="PackedScene" uid="uid://bdwv3xtheeggv" path="res://components/Selectable/Selectable.tscn" id="3_fb7t1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_l4a85"]
+size = Vector2(29, 21)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8sj4j"]
+size = Vector2(108, 167)
+
+[node name="Tree" type="StaticBody2D"]
+script = ExtResource("1_n207w")
+
+[node name="FullSprite" type="Sprite2D" parent="."]
+position = Vector2(0, -74)
+texture = ExtResource("2_nbwk1")
+hframes = 4
+vframes = 3
+region_rect = Rect2(40, 40, 48, 48)
+
+[node name="EmptySprite" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(0, -74)
+texture = ExtResource("2_nbwk1")
+hframes = 4
+vframes = 3
+frame = 8
+region_rect = Rect2(40, 40, 48, 48)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(0.5, -7.5)
+shape = SubResource("RectangleShape2D_l4a85")
+
+[node name="Selectable" parent="." instance=ExtResource("3_fb7t1")]
+visible = false
+
+[node name="CollisionShape2D" parent="Selectable" index="0"]
+position = Vector2(3, -75.5002)
+shape = SubResource("RectangleShape2D_8sj4j")
+
+[node name="Hotspots" type="Node" parent="."]
+
+[node name="Left" type="Node2D" parent="Hotspots"]
+visible = false
+position = Vector2(-56, 8)
+
+[node name="Right" type="Node2D" parent="Hotspots"]
+visible = false
+position = Vector2(49, 8)
+
+[editable path="Selectable"]

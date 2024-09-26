@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://207nx3x5qibt"]
+
+[ext_resource type="Script" path="res://components/unit_selector/unit_selection.gd" id="1_yd75g"]
+
+[node name="UnitSelector" type="Node2D"]
+script = ExtResource("1_yd75g")

@@ -1,0 +1,35 @@
+[gd_scene load_steps=7 format=3 uid="uid://b1yyvdds68i1"]
+
+[ext_resource type="Texture2D" uid="uid://b1x0gs65n58sr" path="res://buildings/Castle/Castle_Blue.png" id="1_ea2al"]
+[ext_resource type="Script" path="res://buildings/Castle/castle.gd" id="1_qv7ua"]
+[ext_resource type="PackedScene" uid="uid://6emh8nh0lbr6" path="res://components/outliner/outliner.tscn" id="2_63ui6"]
+[ext_resource type="Script" path="res://components/obstacle.gd" id="3_g0wb7"]
+[ext_resource type="Material" uid="uid://bfuo0bdmnof36" path="res://shaders/outline_material.tres" id="4_p4rjx"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vfly1"]
+size = Vector2(246, 61)
+
+[node name="Castle" type="StaticBody2D" node_paths=PackedStringArray("outliner")]
+script = ExtResource("1_qv7ua")
+outliner = NodePath("Outliner")
+
+[node name="Outliner" parent="." node_paths=PackedStringArray("sprite") instance=ExtResource("2_63ui6")]
+sprite = NodePath("../Sprite")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+material = ExtResource("4_p4rjx")
+position = Vector2(-1, -109)
+texture = ExtResource("1_ea2al")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(0, -38)
+shape = SubResource("RectangleShape2D_vfly1")
+
+[node name="ObstacleShape" type="CollisionPolygon2D" parent="."]
+visible = false
+position = Vector2(9, -1)
+build_mode = 1
+polygon = PackedVector2Array(-147, -70, -147, -1, 127, 0, 125, -71)
+disabled = true
+script = ExtResource("3_g0wb7")

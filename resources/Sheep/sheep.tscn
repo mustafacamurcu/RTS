@@ -1,0 +1,44 @@
+[gd_scene load_steps=6 format=3 uid="uid://on3jw2eif8s6"]
+
+[ext_resource type="Script" path="res://resources/Sheep/sheep.gd" id="1_iqby4"]
+[ext_resource type="Texture2D" uid="uid://deiqqen8vsacg" path="res://resources/Sheep/HappySheep_Idle.png" id="2_p6jof"]
+[ext_resource type="PackedScene" uid="uid://bdwv3xtheeggv" path="res://components/Selectable/Selectable.tscn" id="3_mbarr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_l4a85"]
+size = Vector2(28, 17)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8sj4j"]
+size = Vector2(50, 38)
+
+[node name="Sheep" type="StaticBody2D"]
+script = ExtResource("1_iqby4")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -18)
+texture = ExtResource("2_p6jof")
+hframes = 8
+region_rect = Rect2(40, 40, 48, 48)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(0, -9.5)
+shape = SubResource("RectangleShape2D_l4a85")
+
+[node name="Selectable" parent="." instance=ExtResource("3_mbarr")]
+visible = false
+
+[node name="CollisionShape2D" parent="Selectable" index="0"]
+position = Vector2(0, -18)
+shape = SubResource("RectangleShape2D_8sj4j")
+
+[node name="Hotspots" type="Node" parent="."]
+
+[node name="Left" type="Node2D" parent="Hotspots"]
+visible = false
+position = Vector2(-52, -2)
+
+[node name="Right" type="Node2D" parent="Hotspots"]
+visible = false
+position = Vector2(51, -3)
+
+[editable path="Selectable"]

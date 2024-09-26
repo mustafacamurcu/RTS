@@ -1,0 +1,125 @@
+[gd_scene load_steps=21 format=3 uid="uid://c7m3eql7mmqj"]
+
+[ext_resource type="Script" path="res://behavior/GatherBehavior/gather_behavior.gd" id="1_mok25"]
+[ext_resource type="Script" path="res://behavior/behavior_tree/repeater.gd" id="2_aiwjs"]
+[ext_resource type="Script" path="res://behavior/behavior_tree/sequence.gd" id="3_r4nec"]
+[ext_resource type="Script" path="res://behavior/behavior_tree/try_until_works.gd" id="4_5ui2o"]
+[ext_resource type="Script" path="res://behavior/behavior_tree/selector.gd" id="4_qwqnd"]
+[ext_resource type="Script" path="res://behavior/GatherBehavior/is_source_depleted.gd" id="5_mfivg"]
+[ext_resource type="Script" path="res://behavior/GatherBehavior/target_closest_source.gd" id="6_xf18m"]
+[ext_resource type="Script" path="res://behavior/GatherBehavior/set_previous_source_as_target.gd" id="7_51j0n"]
+[ext_resource type="Script" path="res://behavior/animation_starter.gd" id="7_vhjbf"]
+[ext_resource type="Script" path="res://behavior/NavigateBehavior/walk.gd" id="8_0lfg3"]
+[ext_resource type="Script" path="res://behavior/start_navigation_to_target.gd" id="8_5dyn8"]
+[ext_resource type="Script" path="res://behavior/behavior_tree/succeeder.gd" id="9_ats8x"]
+[ext_resource type="Script" path="res://behavior/behavior_tree/inverter.gd" id="10_q5ola"]
+[ext_resource type="Script" path="res://behavior/GatherBehavior/is_worker_full.gd" id="11_ifodx"]
+[ext_resource type="Script" path="res://behavior/GatherBehavior/gather.gd" id="12_5qhps"]
+[ext_resource type="Script" path="res://behavior/wait.gd" id="13_dljf6"]
+[ext_resource type="Script" path="res://behavior/GatherBehavior/target_closest_home.gd" id="14_xg5qt"]
+[ext_resource type="Script" path="res://behavior/GatherBehavior/deliver.gd" id="16_i45by"]
+[ext_resource type="Script" path="res://behavior/GatherBehavior/VacateSourceHotspot.gd" id="16_xmh4v"]
+[ext_resource type="Script" path="res://behavior/GatherBehavior/is_worker_empty.gd" id="17_73rcd"]
+
+[node name="GatherBehavior" type="Node"]
+script = ExtResource("1_mok25")
+
+[node name="Repeater" type="Node" parent="."]
+script = ExtResource("2_aiwjs")
+
+[node name="GatherResourceAndDeliver" type="Node" parent="Repeater"]
+script = ExtResource("3_r4nec")
+
+[node name="TryUntilWorks" type="Node" parent="Repeater/GatherResourceAndDeliver"]
+script = ExtResource("4_5ui2o")
+
+[node name="TargetSource" type="Node" parent="Repeater/GatherResourceAndDeliver/TryUntilWorks"]
+script = ExtResource("4_qwqnd")
+
+[node name="TargetPreviousSource" type="Node" parent="Repeater/GatherResourceAndDeliver/TryUntilWorks/TargetSource"]
+script = ExtResource("3_r4nec")
+
+[node name="IsSourceNotDepleted" type="Node" parent="Repeater/GatherResourceAndDeliver/TryUntilWorks/TargetSource/TargetPreviousSource"]
+script = ExtResource("10_q5ola")
+
+[node name="IsSourceDepleted" type="Node" parent="Repeater/GatherResourceAndDeliver/TryUntilWorks/TargetSource/TargetPreviousSource/IsSourceNotDepleted"]
+script = ExtResource("5_mfivg")
+
+[node name="SetPreviousSourceAsTarget" type="Node" parent="Repeater/GatherResourceAndDeliver/TryUntilWorks/TargetSource/TargetPreviousSource"]
+script = ExtResource("7_51j0n")
+
+[node name="TargetClosestSource" type="Node" parent="Repeater/GatherResourceAndDeliver/TryUntilWorks/TargetSource"]
+script = ExtResource("6_xf18m")
+
+[node name="NavigateToSource" type="Node" parent="Repeater/GatherResourceAndDeliver"]
+script = ExtResource("3_r4nec")
+
+[node name="StartNavigationToTarget" type="Node" parent="Repeater/GatherResourceAndDeliver/NavigateToSource"]
+script = ExtResource("8_5dyn8")
+
+[node name="StartWalkAnimation" type="Node" parent="Repeater/GatherResourceAndDeliver/NavigateToSource"]
+script = ExtResource("7_vhjbf")
+animation_state = "Walk"
+
+[node name="WalkToTarget" type="Node" parent="Repeater/GatherResourceAndDeliver/NavigateToSource"]
+script = ExtResource("8_0lfg3")
+
+[node name="Gather" type="Node" parent="Repeater/GatherResourceAndDeliver"]
+script = ExtResource("3_r4nec")
+
+[node name="StartGatherAnimation" type="Node" parent="Repeater/GatherResourceAndDeliver/Gather"]
+script = ExtResource("7_vhjbf")
+animation_state = "Mine"
+
+[node name="Succeeder" type="Node" parent="Repeater/GatherResourceAndDeliver/Gather"]
+script = ExtResource("9_ats8x")
+
+[node name="Repeater" type="Node" parent="Repeater/GatherResourceAndDeliver/Gather/Succeeder"]
+script = ExtResource("2_aiwjs")
+
+[node name="GatherIfPossible" type="Node" parent="Repeater/GatherResourceAndDeliver/Gather/Succeeder/Repeater"]
+script = ExtResource("3_r4nec")
+
+[node name="WorkerHasSpace" type="Node" parent="Repeater/GatherResourceAndDeliver/Gather/Succeeder/Repeater/GatherIfPossible"]
+script = ExtResource("10_q5ola")
+
+[node name="IsWorkerFull" type="Node" parent="Repeater/GatherResourceAndDeliver/Gather/Succeeder/Repeater/GatherIfPossible/WorkerHasSpace"]
+script = ExtResource("11_ifodx")
+
+[node name="SourceNotDepleted" type="Node" parent="Repeater/GatherResourceAndDeliver/Gather/Succeeder/Repeater/GatherIfPossible"]
+script = ExtResource("10_q5ola")
+
+[node name="IsSourceDepleted" type="Node" parent="Repeater/GatherResourceAndDeliver/Gather/Succeeder/Repeater/GatherIfPossible/SourceNotDepleted"]
+script = ExtResource("5_mfivg")
+
+[node name="Wait" type="Node" parent="Repeater/GatherResourceAndDeliver/Gather/Succeeder/Repeater/GatherIfPossible"]
+script = ExtResource("13_dljf6")
+wait_time_in_s = 1
+
+[node name="Gather" type="Node" parent="Repeater/GatherResourceAndDeliver/Gather/Succeeder/Repeater/GatherIfPossible"]
+script = ExtResource("12_5qhps")
+
+[node name="VacateSourceHotspot" type="Node" parent="Repeater/GatherResourceAndDeliver"]
+script = ExtResource("16_xmh4v")
+
+[node name="TargetClosestHome" type="Node" parent="Repeater/GatherResourceAndDeliver"]
+script = ExtResource("14_xg5qt")
+
+[node name="WorkerHasResources" type="Node" parent="Repeater/GatherResourceAndDeliver"]
+script = ExtResource("10_q5ola")
+
+[node name="IsWorkerEmpty" type="Node" parent="Repeater/GatherResourceAndDeliver/WorkerHasResources"]
+script = ExtResource("17_73rcd")
+
+[node name="NavigateToHome" type="Node" parent="Repeater/GatherResourceAndDeliver"]
+script = ExtResource("3_r4nec")
+
+[node name="StartWalkAnimation" type="Node" parent="Repeater/GatherResourceAndDeliver/NavigateToHome"]
+script = ExtResource("7_vhjbf")
+animation_state = "Walk"
+
+[node name="WalkToTarget" type="Node" parent="Repeater/GatherResourceAndDeliver/NavigateToHome"]
+script = ExtResource("8_0lfg3")
+
+[node name="Deliver" type="Node" parent="Repeater/GatherResourceAndDeliver"]
+script = ExtResource("16_i45by")

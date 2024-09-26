@@ -1,0 +1,23 @@
+[gd_scene load_steps=6 format=3 uid="uid://cqloicipujfw2"]
+
+[ext_resource type="Script" path="res://behavior/NavigateBehavior/navigate_behavior.gd" id="1_idqvn"]
+[ext_resource type="Script" path="res://behavior/behavior_tree/sequence.gd" id="2_mv7yi"]
+[ext_resource type="Script" path="res://behavior/NavigateBehavior/set_target_location.gd" id="3_1mghq"]
+[ext_resource type="Script" path="res://behavior/animation_starter.gd" id="3_mdewh"]
+[ext_resource type="Script" path="res://behavior/NavigateBehavior/walk.gd" id="4_pcmpq"]
+
+[node name="NavigateBehavior" type="Node"]
+script = ExtResource("1_idqvn")
+
+[node name="NavigateToTarget" type="Node" parent="."]
+script = ExtResource("2_mv7yi")
+
+[node name="SetTargetPosition" type="Node" parent="NavigateToTarget"]
+script = ExtResource("3_1mghq")
+
+[node name="StartWalkAnimation" type="Node" parent="NavigateToTarget"]
+script = ExtResource("3_mdewh")
+animation_state = "Walk"
+
+[node name="WalkToTarget" type="Node" parent="NavigateToTarget"]
+script = ExtResource("4_pcmpq")

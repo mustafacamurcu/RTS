@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://dhywmau188l6n"]
+
+[ext_resource type="Script" path="res://components/unit_hud/unit_hud.gd" id="1_1p73f"]
+
+[node name="GridContainer" type="GridContainer"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+columns = 6
+script = ExtResource("1_1p73f")

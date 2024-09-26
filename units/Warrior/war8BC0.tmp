@@ -1,0 +1,23 @@
+[gd_scene load_steps=6 format=3 uid="uid://b8jydm0wfe6pb"]
+
+[ext_resource type="PackedScene" uid="uid://bdubmcdlmemu4" path="res://units/unit.tscn" id="1_5rwvv"]
+[ext_resource type="Script" path="res://units/Warrior/warrior.gd" id="1_awbjn"]
+[ext_resource type="Texture2D" uid="uid://dgt1c2yywcf2x" path="res://units/Warrior/Warrior_Blue.png" id="2_0rxul"]
+[ext_resource type="Shader" path="res://shaders/outline.gdshader" id="2_2s7vv"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_raa08"]
+shader = ExtResource("2_2s7vv")
+shader_parameter/highlight_enabled = false
+
+[node name="Warrior" type="Node2D"]
+script = ExtResource("1_awbjn")
+
+[node name="Unit" parent="." instance=ExtResource("1_5rwvv")]
+speed = 300.0
+
+[node name="Sprite" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_raa08")
+texture = ExtResource("2_0rxul")
+flip_h = true
+hframes = 6
+vframes = 8

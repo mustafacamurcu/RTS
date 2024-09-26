@@ -1,0 +1,48 @@
+[gd_scene load_steps=4 format=3 uid="uid://cff64kkpd5ci7"]
+
+[ext_resource type="Texture2D" uid="uid://yulpa03rvqfe" path="res://ui/res/Buttons/Button_Blue_9Slides.png" id="1_eypf8"]
+[ext_resource type="Texture2D" uid="uid://dvdefnmxj0my1" path="res://ui/res/Buttons/Button_Blue_9Slides_Pressed.png" id="2_now15"]
+[ext_resource type="Texture2D" uid="uid://caxinidu2j5n2" path="res://units/Worker/Pawn_Red_single.png" id="3_6t8gx"]
+
+[node name="ActionButton" type="MarginContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1820.0
+offset_bottom = -980.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Button" type="TextureButton" parent="."]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+texture_normal = ExtResource("1_eypf8")
+texture_pressed = ExtResource("2_now15")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="CenterContainer" type="CenterContainer" parent="Button"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect2" type="TextureRect" parent="Button/CenterContainer"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("3_6t8gx")
+expand_mode = 1
+stretch_mode = 5
